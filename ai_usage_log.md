@@ -195,32 +195,230 @@ To establish a consistent product understanding across AI-assisted development s
 
 ---
 
+### Day 2 
+
 ### Prompt 7
 
 ### Goal
-Generate a detailed implementation prompt for designing and developing the Landing Page Hero section based on the ABTalks product vision and target audience.
+Implement the first section of the ABTalks Reimagined landing page as a premium, mobile-first experience at 390px, while maintaining the visual language of the existing ABTalks website.
 
 ### AI Tool
-ChatGPT (GPT-5.5)
+Codex
 
 ### Prompt
-> Create a Codex prompt to design and implement a premium, mobile-first Hero section for the ABTalks Reimagined landing page. The Hero should clearly communicate the value of the 60-day coding challenge, motivate Indian college students to begin the journey, and follow the project's design principles and technology stack.
+> Implement only the first section of the ABTalks Reimagined Landing Page (`/`) using the existing React + Vite + Tailwind CSS v4 + Framer Motion + Lucide React setup.
+>
+> Use the provided ABTalks website screenshot as visual inspiration for the dark premium design language, including typography, purple accents, subtle gradients, borders, rounded cards, and spacing.
+>
+> The section should contain:
+>
+> - An ABTalks introduction explaining that the platform helps students learn, build skills, showcase their work, improve consistency, and become visible to recruiters.
+> - A 60-Day Coding Challenge introduction explaining the daily build, GitHub submission, LinkedIn submission, and career value.
+> - A primary "Start Your 60 Days" button that navigates to `/dashboard`.
+> - A secondary "See How It Works" button that smoothly scrolls to the future `#how-it-works` section.
+> - A right-side sample challenge/progress card showing current streak, today's challenge, GitHub submission, LinkedIn submission, progress through 60 days, and a motivational quote.
+>
+> The implementation must be mobile-first with **390px as the primary design viewport**. The desktop two-column layout should become an intentional vertical layout on mobile rather than simply shrinking the desktop version.
+>
+> Ensure there is no horizontal overflow, clipped content, overlapping buttons, or unreadable text at 390px.
+>
+> Use subtle Framer Motion animations and reusable React components. Reuse the existing project architecture and do not modify unrelated files.
+>
+> Implement only this first section and do not build the remaining landing-page sections yet.
+>
+> After implementation, verify the UI at 390px and desktop, check routing, responsiveness, overflow, and console errors.
+
+### AI Output
+- Implemented the first Landing Page section using the existing React architecture.
+- Added the ABTalks introduction and 60-Day Coding Challenge content.
+- Added primary and secondary CTA buttons.
+- Added the sample challenge/progress card with streak, daily challenge, GitHub, LinkedIn, progress, and motivational content.
+- Applied the existing ABTalks-inspired dark/purple visual language.
+- Added responsive behavior with 390px as the primary viewport.
+- Added subtle animations using Framer Motion.
+- Connected the primary CTA to `/dashboard` and the secondary CTA to the future `#how-it-works` section.
+
+### Manual Changes
+- Reviewed the generated UI at 390px and adjusted spacing, sizing, typography, and alignment where necessary.
+- Refined visual details to better match the desired ABTalks design language.
+- Adjusted content and component styling based on the overall landing-page architecture.
+- Verified that the section remains usable and visually balanced on mobile.
+
+### Reason for Using AI
+To accelerate the implementation of the first landing-page section while maintaining consistency with the existing ABTalks visual style and the project's mobile-first 390px requirement.
+
+### Prompt 8
+
+### Goal
+Reduce the excessive vertical spacing between the top navigation/header and the first hero content section of the ABTalks Reimagined landing page, while preserving the existing internal spacing and layout of the hero.
+
+### AI Tool
+Codex
+
+### Prompt
+> Refine the existing ABTalks Reimagined Landing Page by reducing only the excessive vertical space between the top navigation/header and the entire hero section.
+>
+> Do not change the internal spacing between the About ABTalks content, 60-Day Coding Challenge content, CTA buttons, or challenge preview card.
+>
+> The primary target is exactly 390px. Reduce the unnecessary empty space below the header so the hero content begins earlier in the viewport while maintaining comfortable breathing room.
+>
+> Inspect the existing implementation first and identify the actual margin, padding, section spacing, or layout property responsible for the header-to-hero gap. Modify the smallest possible part of the existing implementation rather than using arbitrary negative margins.
+>
+> Preserve the existing ABTalks visual design, content, routing, hero card, and responsive behavior.
+>
+> Verify the result at 390px and desktop, ensuring there is no overlap, clipping, or horizontal overflow.
 
 ### AI Output
 
-- Generated a comprehensive Codex implementation prompt for the Hero section.
-- Defined the product context and user goals.
-- Specified the required Hero content and visual hierarchy.
-- Included design style, mobile-first requirements, and UI inspiration.
-- Added implementation guidelines for React, Tailwind CSS, Framer Motion, and reusable components.
-- Emphasized production-quality, accessible, and maintainable frontend code.
+- Identified the spacing responsible for the excessive gap between the header and hero section.
+- Reduced the header-to-hero vertical spacing.
+- Preserved the internal spacing and layout of the hero content.
+- Maintained the existing ABTalks visual style and responsive behavior.
+- Verified the landing page at the primary 390px mobile viewport.
 
 ### Manual Changes
 
-- Refined the Hero messaging and branding.
-- Updated CTA text and visual content based on design exploration.
-- Adjusted component structure during implementation.
+- Reviewed the updated spacing at 390px.
+- Confirmed that the hero content remains visually balanced and readable.
+- Fine-tuned spacing if necessary to achieve the desired compact appearance.
 
 ### Reason for Using AI
 
-To create a structured implementation prompt that enables Codex to generate a polished, reusable Hero section while remaining aligned with the project's product vision, design language, and hackathon constraints.
+To quickly identify and refine the layout spacing responsible for unnecessary vertical whitespace while preserving the existing UI structure and mobile-first design.
+
+### Prompt 9
+
+### Goal
+Add a compact highlighted information block to the 60-Day Coding Challenge section explaining that students can choose a track for their 60-day journey.
+
+### AI Tool
+Codex
+
+### Prompt
+> Add a small highlighted information block inside the existing **60-Day Coding Challenge** section of the ABTalks Reimagined Landing Page.
+>
+> The block should communicate:
+>
+> **"Choose one track for your 60-day journey."**
+>
+> Available tracks:
+> - Software Engineering
+> - Data Science
+> - Artificial Intelligence
+>
+> Place the block between the existing challenge description and the CTA buttons.
+>
+> Keep it compact and visually integrated with the existing ABTalks design. Use a dark elevated surface, subtle purple/indigo accent, thin border, rounded corners, and compact spacing.
+>
+> The tracks are informational only at this stage. Do not make them interactive or add new routes, backend functionality, authentication, or selection state.
+>
+> The primary design target is exactly **390px**. Ensure all three tracks remain clearly readable without horizontal overflow or making the block unnecessarily tall.
+>
+> Do not redesign the existing hero section, move the challenge preview card, change CTA functionality, modify routing, or alter unrelated sections.
+>
+> Inspect the existing implementation first and make the smallest necessary changes. Reuse existing components and styling where possible.
+>
+> After implementation, verify the result at 390px and desktop and ensure the new block feels like a natural part of the existing UI.
+
+### AI Output
+
+- Added a highlighted track-selection information block to the 60-Day Coding Challenge section.
+- Added the three available tracks:
+  - Software Engineering
+  - Data Science
+  - Artificial Intelligence
+- Styled the block to match the existing ABTalks dark/purple visual language.
+- Kept the block compact and optimized for the 390px mobile viewport.
+- Kept the tracks informational and non-interactive.
+- Preserved the existing hero layout, CTA functionality, routing, and challenge preview card.
+
+### Manual Changes
+
+- Reviewed the new block at 390px.
+- Adjusted spacing, typography, and sizing where necessary.
+- Ensured the highlighted block integrates naturally with the existing hero content.
+- Verified that the addition does not create horizontal overflow or excessive vertical spacing.
+
+### Reason for Using AI
+
+To quickly implement a visually consistent product-information element while maintaining the existing landing-page architecture and mobile-first design requirements.
+
+### Prompt 10
+
+### Goal
+Refine the ABTalks Reimagined navbar by replacing the existing logo with the provided AB TALKS handwritten-style logo, adding a dark/light theme toggle, and adding a subtle bottom border while maintaining the mobile-first 390px design.
+
+### AI Tool
+Codex
+
+### Prompt
+> Refine only the existing navbar of the ABTalks Reimagined project.
+>
+> Replace the current navbar logo/text with a logo matching the provided AB TALKS reference image:
+> - Handwritten/brush-style appearance
+> - White/light logo in dark mode
+> - Compact horizontal proportions
+> - Clear visibility at 390px
+>
+> Reuse an existing matching logo asset if available. Otherwise, add the provided logo appropriately to the project's assets without embedding a large base64 image.
+>
+> Add a compact dark/light theme toggle to the navbar using Lucide React icons.
+>
+> Requirements:
+> - Dark mode must remain the default.
+> - Light mode should use a clean white/off-white background with dark text and subtle borders.
+> - Preserve the existing purple/indigo accent system.
+> - Do not simply invert colors; make the light theme visually intentional.
+> - Persist the selected theme using localStorage.
+> - Restore the selected theme after page refresh.
+> - Use a key such as `abtalks-theme`.
+>
+> Add a subtle 1px, theme-aware bottom border to the navbar to visually separate it from the landing-page content.
+>
+> The primary design target is exactly 390px:
+> - No horizontal overflow.
+> - Logo must remain clearly visible.
+> - Theme toggle must remain comfortably tappable.
+> - Existing navbar actions must not overlap.
+> - Maintain appropriate mobile spacing.
+>
+> Preserve all existing routes and functionality:
+> - `/`
+> - `/dashboard`
+> - `/day/12`
+>
+> Do not add authentication, backend functionality, database functionality, new routes, or unnecessary dependencies.
+>
+> Use the existing React, Vite, Tailwind CSS v4, and Lucide React setup.
+>
+> Inspect the existing navbar and theme implementation before modifying files. Reuse existing architecture and avoid changing unrelated components.
+>
+> After implementation:
+> 1. Test at exactly 390px.
+> 2. Verify the logo appearance.
+> 3. Verify dark mode is the default.
+> 4. Verify light mode.
+> 5. Verify theme persistence after refresh.
+> 6. Verify the navbar bottom border.
+> 7. Check desktop responsiveness.
+> 8. Check for horizontal overflow and console errors.
+
+### AI Output
+- Replaced the existing navbar branding with the AB TALKS handwritten-style logo.
+- Added a dark/light theme toggle using Lucide React icons.
+- Kept dark mode as the default theme.
+- Added light-theme styling while preserving the ABTalks visual identity.
+- Added localStorage persistence for the selected theme.
+- Added a subtle theme-aware bottom border to the navbar.
+- Preserved the existing routes and navbar functionality.
+- Verified the navbar responsiveness at the 390px mobile viewport.
+
+### Manual Changes
+- Reviewed the navbar against the provided AB TALKS logo reference.
+- Adjusted logo sizing and spacing for the 390px viewport.
+- Refined the theme toggle positioning and touch area.
+- Adjusted border visibility and navbar spacing to match the existing design.
+- Verified that both themes remain visually consistent with the ABTalks design language.
+
+### Reason for Using AI
+To efficiently implement a reusable, responsive navbar refinement with theme support while maintaining the existing ABTalks visual identity and mobile-first requirements.
