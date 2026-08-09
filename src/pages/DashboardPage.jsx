@@ -12,9 +12,8 @@ function DashboardPage() {
 
   return (
     <main
-      className={`${
-        theme === 'dark' ? 'dark' : ''
-      } min-h-screen overflow-x-clip bg-[#fcfcfe] text-slate-950 transition-colors duration-200 dark:bg-[#090912] dark:text-white`}
+      className={`${theme === 'dark' ? 'dark' : ''
+        } min-h-screen overflow-x-clip bg-[#fcfcfe] text-slate-950 transition-colors duration-200 dark:bg-[#090912] dark:text-white`}
     >
       <header className="mx-auto w-full max-w-7xl px-4 pt-4 sm:px-8 sm:pt-6 lg:px-12 lg:pt-8">
         <Navbar theme={theme} onToggleTheme={toggleTheme} />

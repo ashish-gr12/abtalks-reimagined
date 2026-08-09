@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom'
 import Navbar from '../layout/Navbar'
 import useTheme from '../../hooks/useTheme'
 import HowItWorks from './HowItWorks'
+import TrustSection from './TrustSection'
 import FAQ from './FAQ'
 import Footer from './Footer'
 import { getJourneyState } from '../../lib/journeyState'
@@ -82,26 +83,41 @@ function Hero() {
   }, [])
 
   return (
-    <main className={`${theme === 'dark' ? 'dark' : ''} min-h-screen overflow-x-clip bg-[#fcfcfe] text-slate-950 transition-colors duration-200 dark:bg-[#090912] dark:text-white`}>
-      <section className="relative isolate mx-auto min-h-screen w-full max-w-7xl px-5 py-5 sm:px-8 lg:px-12 lg:py-8">
-        <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[420px] bg-[radial-gradient(ellipse_at_65%_0%,rgba(99,102,241,0.12),transparent_62%)] dark:bg-[radial-gradient(ellipse_at_65%_0%,rgba(99,102,241,0.20),transparent_62%)]" />
-        <Navbar theme={theme} onToggleTheme={toggleTheme} />
-        <div className="grid items-center gap-10 pb-8 pt-4 sm:gap-12 sm:pt-6 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20 lg:pb-12 lg:pt-8">
-          <motion.div initial="hidden" animate="visible" transition={{ staggerChildren: 0.09 }} className="max-w-xl">
-            <motion.div variants={reveal} transition={{ duration: 0.45 }}>
-              <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-indigo-600 dark:text-indigo-300">About ABTalks</p>
-              <h1 className="mt-3 text-[38px] font-bold leading-[1.08] tracking-[-0.045em] text-slate-950 dark:text-white sm:text-5xl">Learn. Build. Showcase. <span className="text-indigo-600 dark:text-indigo-300">Get hired.</span></h1>
-              <p className="mt-4 max-w-lg text-[15px] leading-6 text-slate-600 dark:text-slate-400 sm:text-base">ABTalks is a platform for hackathons and challenges that helps students build coding skills, stay consistent, create real projects, and showcase their work.</p>
-            </motion.div>
-            <motion.div variants={reveal} transition={{ duration: 0.48 }} className="mt-6 border-t border-slate-200 pt-6 dark:border-white/10 sm:mt-7 sm:pt-7">
-              <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-indigo-600 dark:text-indigo-300">60-day coding challenge</p>
-              <h2 className="mt-3 text-2xl font-bold leading-tight tracking-[-0.035em] text-slate-950 dark:text-white sm:text-3xl">60 days. 60 tasks. One visible journey.</h2>
-              <p className="mt-3 max-w-lg text-[15px] leading-6 text-slate-600 dark:text-slate-400 sm:text-base">Build something new every day, document your progress, and turn 60 days of consistent work into a portfolio that speaks for you.</p>
-              <p className="mt-3 text-sm font-semibold text-indigo-600 dark:text-indigo-300 sm:text-base">Build. Share. Get noticed.</p>
-              <div className="mt-8 flex flex-col gap-3 sm:mt-9 sm:flex-row">
-                <Link to="/dashboard">
-                  <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }} transition={{ duration: 0.18 }} className="inline-flex w-full min-h-12 items-center justify-center gap-2 rounded-xl bg-indigo-600 px-5 text-sm font-semibold text-white shadow-lg shadow-indigo-950/20 hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 dark:bg-indigo-500 dark:shadow-indigo-950/40 dark:hover:bg-indigo-400 dark:focus-visible:outline-indigo-300">
-                    {hasSelectedDomain ? 'Track Your Progress' : 'Start Your 60 Days'} <ArrowRight aria-hidden="true" className="size-4" />
+    <main className={`min-h-screen bg-white text-slate-900 antialiased dark:bg-[#090912] dark:text-slate-100 ${theme === 'dark' ? 'dark' : ''}`}>
+      <section className="px-5 pb-16 pt-5 sm:px-8 sm:pb-24 sm:pt-6 lg:px-12">
+        <div className="mx-auto max-w-6xl">
+          <Navbar theme={theme} onToggleTheme={toggleTheme} />
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            transition={{ staggerChildren: 0.1, delayChildren: 0.05 }}
+            className="mt-10 grid gap-10 lg:mt-16 lg:grid-cols-12 lg:items-center lg:gap-12"
+          >
+            <motion.div variants={reveal} className="lg:col-span-7">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-xs font-semibold text-indigo-700 dark:border-indigo-400/20 dark:bg-indigo-500/10 dark:text-indigo-300">
+                <Code2 className="size-3.5" aria-hidden="true" />
+                <span>60-Day Builder Journey</span>
+              </span>
+              <h1 className="mt-4 text-3xl font-black tracking-[-0.04em] text-slate-950 dark:text-white sm:text-5xl lg:text-6xl">
+                Build daily. <br />
+                Prove your work. <br />
+                <span className="bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-700 bg-clip-text text-transparent dark:from-indigo-300 dark:via-indigo-200 dark:to-indigo-400">
+                  Transform your career.
+                </span>
+              </h1>
+              <p className="mt-4 max-w-xl text-base leading-relaxed text-slate-600 dark:text-slate-300 sm:text-lg">
+                Join India&apos;s coding community for college students to learn, build, and accelerate their careers through visible proof of work over 60 days.
+              </p>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+                <Link to="/dashboard" className="rounded-xl">
+                  <motion.div
+                    whileHover={{ y: -2 }}
+                    whileTap={{ scale: 0.98 }}
+                    transition={{ duration: 0.18 }}
+                    className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-indigo-600 px-6 text-sm font-semibold text-white shadow-lg shadow-indigo-950/20 hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 dark:bg-indigo-500 dark:shadow-indigo-950/40 dark:hover:bg-indigo-400 dark:focus-visible:outline-indigo-300 sm:w-auto"
+                  >
+                    <span>{hasSelectedDomain ? 'Track Your Progress' : 'Start Your 60 Days'}</span>
+                    <ArrowRight aria-hidden="true" className="size-4" />
                   </motion.div>
                 </Link>
                 <motion.a href="#how-it-works" whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }} transition={{ duration: 0.18 }} className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-5 text-sm font-semibold text-slate-800 shadow-sm hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 dark:border-white/12 dark:bg-white/[0.035] dark:text-slate-100 dark:shadow-none dark:hover:bg-white/[0.08] dark:focus-visible:outline-indigo-300">
@@ -110,11 +126,14 @@ function Hero() {
                 </motion.a>
               </div>
             </motion.div>
+            <div className="lg:col-span-5">
+              <ChallengePreview />
+            </div>
           </motion.div>
-          <ChallengePreview />
         </div>
       </section>
       <HowItWorks />
+      <TrustSection />
       <FAQ />
       <Footer />
     </main>

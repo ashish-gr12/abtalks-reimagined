@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import {
   ArrowLeft,
   CheckCircle2,
@@ -57,6 +57,7 @@ const challengeData = {
 
 function ChallengeDayPage() {
   const { theme, toggleTheme } = useTheme()
+  const shouldReduceMotion = useReducedMotion()
   const activeDomain = getJourneyState().selectedDomain || 'software-engineering'
 
   // Submission local state persisted in localStorage
@@ -82,6 +83,11 @@ function ChallengeDayPage() {
   // Error messages state
   const [githubError, setGithubError] = useState('')
   const [linkedinError, setLinkedinError] = useState('')
+
+  // Ensure page starts at the top when mounted
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   // Sync to localStorage and update journey state
   useEffect(() => {
@@ -170,10 +176,13 @@ function ChallengeDayPage() {
 
         {/* Challenge Header Card */}
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="relative overflow-hidden rounded-3xl border border-indigo-200 bg-white p-5 shadow-lg shadow-indigo-950/5 dark:border-indigo-500/20 dark:bg-white/[0.035] sm:p-8"
+          id="challenge-header"
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+          whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+          whileHover={shouldReduceMotion ? undefined : { y: -2 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          className="relative overflow-hidden rounded-3xl border border-indigo-200 bg-white p-5 shadow-lg shadow-indigo-950/5 transition-all duration-300 hover:border-indigo-300 hover:shadow-xl dark:border-indigo-500/20 dark:bg-white/[0.035] dark:hover:border-indigo-500/40 sm:p-8"
         >
           {/* Top metadata row */}
           <div className="flex flex-wrap items-center justify-between gap-2.5 border-b border-slate-200/80 pb-4 dark:border-white/10">
@@ -223,12 +232,14 @@ function ChallengeDayPage() {
         <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-12 lg:gap-8">
           {/* LEFT COLUMN: CHALLENGE DETAILS, BUILD CHECKLIST & REQUIREMENTS */}
           <div className="flex flex-col gap-6 md:col-span-7 lg:col-span-7">
-            {/* WHY THIS MATTERS */}
+            {/* WHY THIS MATTERS CARD */}
             <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35, delay: 0.1 }}
-              className="rounded-2xl border border-slate-200/90 bg-white p-5 shadow-xs dark:border-white/10 dark:bg-white/[0.035] sm:p-6"
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+              whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+              whileHover={shouldReduceMotion ? undefined : { y: -3 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              className="rounded-2xl border border-slate-200/90 bg-white p-5 shadow-xs transition-all duration-300 hover:border-indigo-200 hover:shadow-md dark:border-white/10 dark:bg-white/[0.035] dark:hover:border-indigo-500/30 sm:p-6"
             >
               <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
                 <Sparkles className="size-4" />
@@ -239,12 +250,14 @@ function ChallengeDayPage() {
               </p>
             </motion.div>
 
-            {/* WHAT YOU NEED TO BUILD */}
+            {/* WHAT YOU NEED TO BUILD CARD */}
             <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35, delay: 0.15 }}
-              className="rounded-2xl border border-slate-200/90 bg-white p-5 shadow-xs dark:border-white/10 dark:bg-white/[0.035] sm:p-6"
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+              whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+              whileHover={shouldReduceMotion ? undefined : { y: -3 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.35, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
+              className="rounded-2xl border border-slate-200/90 bg-white p-5 shadow-xs transition-all duration-300 hover:border-indigo-200 hover:shadow-md dark:border-white/10 dark:bg-white/[0.035] dark:hover:border-indigo-500/30 sm:p-6"
             >
               <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-200">
                 <Code2 className="size-4 text-indigo-600 dark:text-indigo-400" />
@@ -253,25 +266,31 @@ function ChallengeDayPage() {
 
               <ul className="mt-3.5 flex flex-col gap-2.5">
                 {challengeData.buildTasks.map((task, idx) => (
-                  <li
+                  <motion.li
                     key={idx}
-                    className="flex items-start gap-3 rounded-xl border border-slate-100 bg-slate-50/80 p-3 text-xs font-medium text-slate-800 dark:border-white/5 dark:bg-white/[0.02] dark:text-slate-200 sm:text-sm"
+                    initial={shouldReduceMotion ? false : { opacity: 0, x: -6 }}
+                    whileInView={shouldReduceMotion ? undefined : { opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.25, delay: idx * 0.04 }}
+                    className="flex items-start gap-3 rounded-xl border border-slate-100 bg-slate-50/80 p-3 text-xs font-medium text-slate-800 transition-colors hover:border-indigo-200/60 dark:border-white/5 dark:bg-white/[0.02] dark:text-slate-200 dark:hover:border-white/10 sm:text-sm"
                   >
                     <span className="grid size-5 shrink-0 place-items-center rounded-full bg-indigo-100 text-indigo-600 dark:bg-indigo-500/20 dark:text-indigo-300">
                       <Check className="size-3 stroke-[3]" />
                     </span>
                     <span>{task}</span>
-                  </li>
+                  </motion.li>
                 ))}
               </ul>
             </motion.div>
 
-            {/* REQUIREMENTS CHECKLIST */}
+            {/* REQUIREMENTS CHECKLIST CARD */}
             <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35, delay: 0.2 }}
-              className="rounded-2xl border border-slate-200/90 bg-white p-5 shadow-xs dark:border-white/10 dark:bg-white/[0.035] sm:p-6"
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+              whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+              whileHover={shouldReduceMotion ? undefined : { y: -3 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.35, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="rounded-2xl border border-slate-200/90 bg-white p-5 shadow-xs transition-all duration-300 hover:border-indigo-200 hover:shadow-md dark:border-white/10 dark:bg-white/[0.035] dark:hover:border-indigo-500/30 sm:p-6"
             >
               <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-200">
                 <CheckCircle2 className="size-4 text-emerald-500" />
@@ -280,23 +299,29 @@ function ChallengeDayPage() {
 
               <div className="mt-3.5 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
                 {challengeData.requirements.map((req, idx) => (
-                  <div
+                  <motion.div
                     key={idx}
-                    className="flex items-center gap-2.5 rounded-xl border border-slate-200/70 bg-slate-50/60 p-3 text-xs font-semibold text-slate-700 dark:border-white/5 dark:bg-white/[0.02] dark:text-slate-300"
+                    initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.97 }}
+                    whileInView={shouldReduceMotion ? undefined : { opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.25, delay: idx * 0.03 }}
+                    className="flex items-center gap-2.5 rounded-xl border border-slate-200/70 bg-slate-50/60 p-3 text-xs font-semibold text-slate-700 transition-colors hover:border-emerald-200 dark:border-white/5 dark:bg-white/[0.02] dark:text-slate-300 dark:hover:border-emerald-500/30"
                   >
                     <CheckCircle2 className="size-4 shrink-0 text-emerald-500" />
                     <span>{req}</span>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </motion.div>
 
-            {/* WHAT YOU'LL LEARN */}
+            {/* WHAT YOU'LL LEARN CARD */}
             <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35, delay: 0.25 }}
-              className="rounded-2xl border border-slate-200/90 bg-white p-5 shadow-xs dark:border-white/10 dark:bg-white/[0.035] sm:p-6"
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+              whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+              whileHover={shouldReduceMotion ? undefined : { y: -3 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.35, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+              className="rounded-2xl border border-slate-200/90 bg-white p-5 shadow-xs transition-all duration-300 hover:border-indigo-200 hover:shadow-md dark:border-white/10 dark:bg-white/[0.035] dark:hover:border-indigo-500/30 sm:p-6"
             >
               <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-200">
                 <BookOpen className="size-4 text-indigo-600 dark:text-indigo-400" />
@@ -305,13 +330,15 @@ function ChallengeDayPage() {
 
               <div className="mt-3.5 flex flex-wrap gap-2">
                 {challengeData.skills.map((skill, idx) => (
-                  <span
+                  <motion.span
                     key={idx}
-                    className="inline-flex items-center gap-1.5 rounded-xl border border-indigo-200 bg-indigo-50/80 px-3.5 py-2 text-xs font-bold text-indigo-700 dark:border-indigo-500/20 dark:bg-indigo-500/10 dark:text-indigo-300"
+                    whileHover={shouldReduceMotion ? undefined : { scale: 1.04 }}
+                    transition={{ duration: 0.15 }}
+                    className="inline-flex items-center gap-1.5 rounded-xl border border-indigo-200 bg-indigo-50/80 px-3.5 py-2 text-xs font-bold text-indigo-700 transition-colors hover:border-indigo-300 dark:border-indigo-500/20 dark:bg-indigo-500/10 dark:text-indigo-300"
                   >
                     <Check className="size-3 stroke-[3]" />
                     {skill}
-                  </span>
+                  </motion.span>
                 ))}
               </div>
             </motion.div>
@@ -319,12 +346,15 @@ function ChallengeDayPage() {
 
           {/* RIGHT COLUMN: PROOF OF WORK & DAY STATUS */}
           <div className="flex flex-col gap-6 md:col-span-5 lg:col-span-5">
-            {/* PROOF OF WORK SUBMISSION CONTAINER */}
+            {/* PROOF OF WORK SUBMISSION CONTAINER CARD */}
             <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35, delay: 0.15 }}
-              className="relative overflow-hidden rounded-2xl border border-indigo-200 bg-white p-5 shadow-md dark:border-indigo-500/20 dark:bg-white/[0.035] sm:p-6"
+              id="proof-section"
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+              whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+              whileHover={shouldReduceMotion ? undefined : { y: -3 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="relative overflow-hidden rounded-2xl border border-indigo-200 bg-white p-5 shadow-md transition-all duration-300 hover:border-indigo-300 hover:shadow-xl dark:border-indigo-500/20 dark:bg-white/[0.035] dark:hover:border-indigo-500/40 sm:p-6"
             >
               <div className="border-b border-slate-200/80 pb-4 dark:border-white/10">
                 <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-300">
@@ -346,7 +376,13 @@ function ChallengeDayPage() {
               </div>
 
               {/* SUBMISSION FORM 1: GITHUB */}
-              <div className="mt-5 rounded-2xl border border-slate-200/80 bg-slate-50/70 p-4 dark:border-white/8 dark:bg-white/[0.02]">
+              <motion.div
+                initial={shouldReduceMotion ? false : { opacity: 0, y: 8 }}
+                whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.3, delay: 0.1 }}
+                className="mt-5 rounded-2xl border border-slate-200/80 bg-slate-50/70 p-4 transition-colors hover:border-indigo-200 dark:border-white/8 dark:bg-white/[0.02] dark:hover:border-white/15"
+              >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2 text-xs font-bold text-slate-900 dark:text-white">
                     <GitCommit className="size-4 text-indigo-600 dark:text-indigo-400" />
@@ -400,19 +436,28 @@ function ChallengeDayPage() {
                       </p>
                     )}
 
-                    <button
+                    <motion.button
                       type="submit"
+                      whileHover={shouldReduceMotion ? undefined : { scale: 1.01 }}
+                      whileTap={shouldReduceMotion ? undefined : { scale: 0.99 }}
+                      transition={{ duration: 0.15 }}
                       className="group inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-indigo-600 text-xs font-semibold text-white shadow-md hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-400"
                     >
                       <GitCommit className="size-3.5" />
                       <span>Submit GitHub Proof</span>
-                    </button>
+                    </motion.button>
                   </form>
                 )}
-              </div>
+              </motion.div>
 
               {/* SUBMISSION FORM 2: LINKEDIN */}
-              <div className="mt-4 rounded-2xl border border-slate-200/80 bg-slate-50/70 p-4 dark:border-white/8 dark:bg-white/[0.02]">
+              <motion.div
+                initial={shouldReduceMotion ? false : { opacity: 0, y: 8 }}
+                whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.3, delay: 0.15 }}
+                className="mt-4 rounded-2xl border border-slate-200/80 bg-slate-50/70 p-4 transition-colors hover:border-amber-200 dark:border-white/8 dark:bg-white/[0.02] dark:hover:border-white/15"
+              >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2 text-xs font-bold text-slate-900 dark:text-white">
                     <Share2 className="size-4 text-amber-500" />
@@ -466,16 +511,19 @@ function ChallengeDayPage() {
                       </p>
                     )}
 
-                    <button
+                    <motion.button
                       type="submit"
+                      whileHover={shouldReduceMotion ? undefined : { scale: 1.01 }}
+                      whileTap={shouldReduceMotion ? undefined : { scale: 0.99 }}
+                      transition={{ duration: 0.15 }}
                       className="group inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-amber-500 text-xs font-semibold text-slate-950 shadow-md hover:bg-amber-400 focus-visible:outline-2 focus-visible:outline-amber-500"
                     >
                       <Share2 className="size-3.5" />
                       <span>Submit LinkedIn Proof</span>
-                    </button>
+                    </motion.button>
                   </form>
                 )}
-              </div>
+              </motion.div>
 
               {/* DAY COMPLETION STATE */}
               <div className="mt-6 border-t border-slate-200/80 pt-5 dark:border-white/10">
@@ -549,7 +597,7 @@ function ChallengeDayPage() {
         </div>
       </section>
 
-      <Footer />
+      <Footer mode="challenge" currentDay={12} isCompleted={isCompleted} proofState={proofState} />
     </main>
   )
 }

@@ -1,6 +1,5 @@
 const STORAGE_KEY = 'abtalksJourney'
 const LEGACY_DOMAIN_KEY = 'abtalks-selected-domain'
-const DEMO_MODE_KEY = 'abtalks-demo-mode'
 
 const defaultState = {
   selectedDomain: null,
@@ -186,167 +185,15 @@ export function completeDayChallenge(dayNumber, domainId) {
   return updated
 }
 
-export function getDemoMode() {
-  if (typeof window === 'undefined') return null
-  const params = new URLSearchParams(window.location.search)
-  const queryMode = params.get('demo')
-  if (queryMode && ['fresh', 'missed', 'active'].includes(queryMode)) {
-    return queryMode
-  }
-  const savedMode = localStorage.getItem(DEMO_MODE_KEY)
-  if (savedMode && ['fresh', 'missed', 'active'].includes(savedMode)) {
-    return savedMode
-  }
-  return null
-}
-
-export function setDemoMode(mode) {
-  if (typeof window === 'undefined') return
-  try {
-    if (mode) {
-      localStorage.setItem(DEMO_MODE_KEY, mode)
-      const url = new URL(window.location.href)
-      url.searchParams.set('demo', mode)
-      window.history.replaceState({}, '', url)
-    } else {
-      localStorage.removeItem(DEMO_MODE_KEY)
-      const url = new URL(window.location.href)
-      url.searchParams.delete('demo')
-      window.history.replaceState({}, '', url)
-    }
-  } catch (e) {
-    console.warn('Failed to set demo mode:', e)
-  }
-  window.dispatchEvent(new Event('abtalks-journey-updated'))
-}
-
-// Generate active metrics based on demo state or real domain-specific stored state
-export function getEffectiveMetrics(overrideMode) {
+// Generate active metrics based on real domain-specific stored state
+export function getEffectiveMetrics() {
   const baseState = getJourneyState()
-  const demoMode = overrideMode !== undefined ? overrideMode : getDemoMode()
-
-  // 1. FRESH DEMO MODE (Explicit testing override)
-  if (demoMode === 'fresh') {
-    return {
-      demoMode: 'fresh',
-      currentDay: 1,
-      totalDays: 60,
-      completedDays: [],
-      missedDays: [],
-      completedCount: 0,
-      remainingDays: 60,
-      progressPercentage: 0,
-      currentStreak: 0,
-      githubCount: 0,
-      githubTotal: 0,
-      linkedinCount: 0,
-      linkedinTotal: 0,
-      streakTitle: '🔥 0 DAY STREAK',
-      streakMessage: 'Your streak starts today.',
-      streakSubtext: 'Complete Day 1 to start building your consistency.',
-      isEmptyProfile: true,
-      profileProofTitle: 'Your proof of work is still empty.',
-      profileProofMessage:
-        'Complete your first challenge to start building your public portfolio.',
-      hasMissedDay: false,
-      missedDayText: '',
-      activityGrid: Array.from({ length: 35 }).map((_, idx) => ({
-        dayNumber: idx + 1,
-        status: 'upcoming',
-        label: `Day ${idx + 1}: Upcoming`,
-        isToday: idx === 0,
-      })),
-    }
-  }
-
-  // 2. MISSED DAY DEMO MODE (Explicit testing override)
-  if (demoMode === 'missed') {
-    return {
-      demoMode: 'missed',
-      currentDay: 5,
-      totalDays: 60,
-      completedDays: [1, 2, 3],
-      missedDays: [4],
-      completedCount: 3,
-      remainingDays: 57,
-      progressPercentage: 5, // 3 / 60 = 5%
-      currentStreak: 1,
-      githubCount: 3,
-      githubTotal: 4,
-      linkedinCount: 3,
-      linkedinTotal: 4,
-      streakTitle: '🔥 1 DAY STREAK',
-      streakMessage: "You missed Day 4, but you're back.",
-      streakSubtext: "One missed day doesn't stop your journey. Keep building.",
-      isEmptyProfile: false,
-      profileProofTitle: '3 Proofs of Work Submitted',
-      profileProofMessage: 'GitHub 3/4 • LinkedIn 3/4',
-      hasMissedDay: true,
-      missedDayText: "You missed Day 4, but you're back.",
-      activityGrid: Array.from({ length: 35 }).map((_, idx) => {
-        const dayNum = idx + 1
-        let status = 'upcoming'
-        if ([1, 2, 3].includes(dayNum)) status = 'completed'
-        else if (dayNum === 4) status = 'missed'
-
-        return {
-          dayNumber: dayNum,
-          status,
-          label:
-            status === 'completed'
-              ? `Day ${dayNum}: Completed`
-              : status === 'missed'
-              ? `Day ${dayNum}: Missed`
-              : `Day ${dayNum}: Upcoming`,
-          isToday: dayNum === 5,
-        }
-      }),
-    }
-  }
-
-  // 3. ACTIVE DEMO OVERRIDE (Day 12 populated state)
-  if (demoMode === 'active') {
-    return {
-      demoMode: 'active',
-      currentDay: 12,
-      totalDays: 60,
-      completedDays: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-      missedDays: [],
-      completedCount: 11,
-      remainingDays: 49,
-      progressPercentage: 20, // 12 of 60 = 20%
-      currentStreak: 12,
-      githubCount: 12,
-      githubTotal: 12,
-      linkedinCount: 10,
-      linkedinTotal: 12,
-      streakTitle: '🔥 12 DAY STREAK',
-      streakMessage: '12 days strong. Keep building.',
-      streakSubtext: 'Top 10% consistency among ABTalks builders.',
-      isEmptyProfile: false,
-      profileProofTitle: '22 Proofs of Work Submitted',
-      profileProofMessage: 'GitHub 12/12 • LinkedIn 10/12',
-      hasMissedDay: false,
-      missedDayText: '',
-      activityGrid: Array.from({ length: 35 }).map((_, idx) => {
-        const dayNum = idx + 1
-        const isCompleted = dayNum <= 12
-        return {
-          dayNumber: dayNum,
-          status: isCompleted ? 'completed' : 'upcoming',
-          label: isCompleted ? `Day ${dayNum}: Completed` : `Day ${dayNum}: Upcoming`,
-          isToday: dayNum === 12,
-        }
-      }),
-    }
-  }
 
   // 4. REAL APPLICATION STATE (Derived from baseState.domains[selectedDomain])
   const activeDomainKey = baseState.selectedDomain
   if (!activeDomainKey) {
     // Fresh student state (no domain committed yet)
     return {
-      demoMode: null,
       currentDay: 1,
       totalDays: 60,
       completedDays: [],
@@ -399,7 +246,6 @@ export function getEffectiveMetrics(overrideMode) {
 
   if (isFreshDomain) {
     return {
-      demoMode: null,
       currentDay: 1,
       totalDays: 60,
       completedDays: [],
@@ -434,7 +280,6 @@ export function getEffectiveMetrics(overrideMode) {
   const firstMissedDay = hasMissed ? missedDays[0] : null
 
   return {
-    demoMode: null,
     currentDay,
     totalDays: 60,
     completedDays,

@@ -92,27 +92,8 @@ function JourneyTimeline() {
 
   const currentJourney = mockJourneys[activeDomainKey] || mockJourneys['software-engineering']
 
-  // Adapt challenge statuses based on effective metrics (fresh, missed, active, or real application state)
+  // Adapt challenge statuses based on real application state
   const challenges = currentJourney.challenges.map((ch) => {
-    if (metrics.demoMode === 'fresh') {
-      return {
-        ...ch,
-        status: ch.day === 1 ? 'current' : 'locked',
-      }
-    }
-    if (metrics.demoMode === 'missed') {
-      if (ch.day < 4) return { ...ch, status: 'completed' }
-      if (ch.day === 4) return { ...ch, status: 'missed', statusLabel: 'Missed Day 4' }
-      if (ch.day === 5) return { ...ch, status: 'current' }
-      return { ...ch, status: 'locked' }
-    }
-    if (metrics.demoMode === 'active') {
-      if (ch.day < 3) return { ...ch, status: 'completed' }
-      if (ch.day === 3) return { ...ch, status: 'current' }
-      return { ...ch, status: 'locked' }
-    }
-
-    // REAL APPLICATION STATE
     if (metrics.completedDays.includes(ch.day)) {
       return { ...ch, status: 'completed' }
     }
@@ -128,12 +109,11 @@ function JourneyTimeline() {
     return ch
   })
 
-  const defaultSelectedDay = metrics.demoMode === 'fresh' ? 1 : metrics.demoMode === 'missed' ? 5 : 3
-  const [selectedDay, setSelectedDay] = useState(defaultSelectedDay)
+  const [selectedDay, setSelectedDay] = useState(metrics.currentDay || 1)
 
   useEffect(() => {
-    setSelectedDay(metrics.demoMode === 'fresh' ? 1 : metrics.demoMode === 'missed' ? 5 : 3)
-  }, [metrics.demoMode])
+    setSelectedDay(metrics.currentDay || 1)
+  }, [metrics.currentDay])
 
   const activeChallenge = challenges.find((c) => c.day === selectedDay) || challenges[0]
 

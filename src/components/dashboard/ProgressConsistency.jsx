@@ -12,7 +12,7 @@ import {
   AlertTriangle,
   FolderOpen,
 } from 'lucide-react'
-import { getEffectiveMetrics, getDemoMode, setDemoMode } from '../../lib/journeyState'
+import { getEffectiveMetrics } from '../../lib/journeyState'
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -52,8 +52,6 @@ function ProgressConsistency() {
     }
   }, [])
 
-  const currentDemoMode = getDemoMode() || 'active'
-
   const {
     currentDay,
     totalDays,
@@ -78,60 +76,12 @@ function ProgressConsistency() {
 
   const linkedinMissing = Math.max(0, linkedinTotal - linkedinCount)
 
-  const handleSelectDemo = (mode) => {
-    setDemoMode(mode)
-    setMetrics(getEffectiveMetrics(mode))
-  }
-
   return (
     <section
       id="dashboard-progress-section"
       aria-label="Your 60-day progress, completion, and consistency streak"
       className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-8 sm:py-12 lg:px-12"
     >
-      {/* Conditional Demo Selector for Testing via URL Query Params */}
-      {currentDemoMode && (
-        <div className="mb-6 flex flex-wrap items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-slate-50/80 p-2.5 dark:border-white/10 dark:bg-white/[0.03]">
-          <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-            Demo Mode Active:
-          </span>
-          <button
-            type="button"
-            onClick={() => handleSelectDemo('fresh')}
-            className={`rounded-xl px-3 py-1.5 text-xs font-semibold transition-all ${
-              currentDemoMode === 'fresh'
-                ? 'bg-indigo-600 text-white shadow-xs dark:bg-indigo-500'
-                : 'bg-white text-slate-700 hover:bg-slate-100 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10'
-            }`}
-          >
-            🌱 Fresh Student
-          </button>
-
-          <button
-            type="button"
-            onClick={() => handleSelectDemo('missed')}
-            className={`rounded-xl px-3 py-1.5 text-xs font-semibold transition-all ${
-              currentDemoMode === 'missed'
-                ? 'bg-indigo-600 text-white shadow-xs dark:bg-indigo-500'
-                : 'bg-white text-slate-700 hover:bg-slate-100 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10'
-            }`}
-          >
-            ⚠️ Missed Day
-          </button>
-
-          <button
-            type="button"
-            onClick={() => handleSelectDemo('active')}
-            className={`rounded-xl px-3 py-1.5 text-xs font-semibold transition-all ${
-              currentDemoMode === 'active'
-                ? 'bg-indigo-600 text-white shadow-xs dark:bg-indigo-500'
-                : 'bg-white text-slate-700 hover:bg-slate-100 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10'
-            }`}
-          >
-            🔥 Active Student
-          </button>
-        </div>
-      )}
 
       {/* Main Container - Vertical Stack on Mobile 390px, 2-Column Grid on Desktop */}
       <motion.div
