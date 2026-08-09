@@ -98,11 +98,10 @@ function XIcon(props) {
 }
 
 const socialLinks = [
-  { name: 'Instagram', href: '#', icon: InstagramIcon },
-  { name: 'Facebook', href: '#', icon: FacebookIcon },
-  { name: 'Discord', href: '#', icon: DiscordIcon },
-  { name: 'YouTube', href: '#', icon: YoutubeIcon },
-  { name: 'X', href: '#', icon: XIcon },
+  { name: 'Instagram', href: 'https://www.instagram.com/abtalksonai/', icon: InstagramIcon },
+  { name: 'YouTube', href: 'https://www.youtube.com/@ABTalksOnAI', icon: YoutubeIcon },
+  { name: 'Discord', href: 'https://discord.com/invite/j4Q8tvDj6', icon: DiscordIcon },
+  { name: 'X', href: 'https://x.com/abtalksonai', icon: XIcon },
 ]
 
 // 1. Landing 60-Day Visual Motif Component
@@ -565,6 +564,8 @@ function Footer({ mode: modeProp, currentDay = 12, isCompleted = false, proofSta
                     <motion.a
                       key={item.name}
                       href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       aria-label={item.name}
                       whileHover={shouldReduceMotion ? undefined : { y: -2, scale: 1.05 }}
                       transition={{ duration: 0.18 }}

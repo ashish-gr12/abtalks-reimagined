@@ -1798,3 +1798,57 @@ Added viewport entrance animations, subtle stagger, and desktop hover interactio
 
 ### Reason for Using AI
 To make the Challenge Day experience feel more polished and interactive while keeping the focus on the student's task.
+
+
+### Prompt 51
+
+### Goal
+Connect the Landing Page footer social icons to the official ABTalks channels.
+
+### AI Tool
+Antigravity
+
+### Prompt
+Connected the existing Instagram, YouTube, Discord, and X footer icons to their official ABTalks social links.
+
+### AI Output
+- Connected the Instagram footer icon.
+- Connected the YouTube footer icon.
+- Connected the Discord footer icon.
+- Connected the X footer icon.
+- Preserved the existing footer design and animations.
+- Verified mobile and desktop behavior.
+
+### Manual Changes
+- None.
+
+### Reason for Using AI
+To make the existing ABTalks social icons functional and connect visitors to the official community channels.
+
+
+### Prompt 52
+
+### Goal
+Connect the official ABTalks social links to the Dashboard and Challenge Day footers.
+
+### AI Tool
+Antigravity
+
+### Prompt
+Connected the existing Instagram, YouTube, Discord, and X icons on the Dashboard and Challenge Day footers to the official ABTalks social channels.
+
+### AI Output
+- Connected Instagram.
+- Connected YouTube.
+- Connected Discord.
+- Connected X.
+- Preserved existing footer designs and animations.
+- Verified 390px and desktop layouts.
+- Verified Dark and Light themes.
+- Checked the browser console.
+
+### Manual Changes
+- None.
+
+### Reason for Using AI
+To keep the ABTalks social links consistent across all pages.
