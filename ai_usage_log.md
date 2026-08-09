@@ -937,3 +937,525 @@ To refine button action messaging and introduce visual directional cue while mai
 
 ---
 
+### Prompt 20
+
+### Goal
+Build the first mobile-first Dashboard experience with a community Hero and domain selection.
+
+### AI Tool
+Antigravity
+
+### Prompt
+Created the Dashboard Hero and Pick Your Domain experience with three interactive domains and a guided journey-start flow, prioritizing the 390px mobile experience.
+
+### AI Output
+- Added the Dashboard community Hero.
+- Added three domain options.
+- Added domain selection and subtle animations.
+- Added the Start Your Journey flow.
+- Added the Start Your Day 1 action.
+- Verified the Dashboard on mobile and desktop.
+
+### Manual Changes
+- None.
+
+### Reason for Using AI
+To create a polished mobile-first Dashboard experience that guides students into their 60-day coding journey.
+
+
+### Prompt 21
+
+### Goal
+Create the Dashboard journey timeline and Today's Task section.
+
+### AI Tool
+Antigravity
+
+### Prompt
+Added a mobile-first journey timeline with realistic coding challenges and a connected Today's Task experience.
+
+### AI Output
+- Added the Your Journey timeline.
+- Added completed, current, and locked challenge states.
+- Added realistic intermediate-level coding challenges.
+- Added the Today's Task card with estimated time and learning outcomes.
+- Added the Start Today's Challenge action.
+- Added subtle timeline animations.
+- Verified the section on mobile and desktop.
+
+### Manual Changes
+- None.
+
+### Reason for Using AI
+To make the student's daily challenge progression clear and motivating while keeping the Dashboard focused on what they need to build today.
+
+
+### Prompt 22
+
+### Goal
+Add the Dashboard progress, overall completion, and consistency tracking section.
+
+### AI Tool
+Antigravity
+
+### Prompt
+Created a mobile-first progress and consistency section showing the student's position in the 60-day challenge, proof-of-work completion, and current streak.
+
+### AI Output
+- Added the 60-day progress tracker.
+- Added the overall completion breakdown.
+- Added GitHub and LinkedIn proof-of-work status.
+- Added the 12-day consistency streak.
+- Added a GitHub-inspired activity view for recent consistency.
+- Added subtle progress and activity animations.
+- Verified the section on mobile and desktop.
+
+### Manual Changes
+- None.
+
+### Reason for Using AI
+To make challenge progress, proof of work, and consistency easy for students to understand at a glance.
+
+
+### Prompt 23
+
+### Goal
+Add a simple, motivating community leaderboard and milestone section to the Dashboard.
+
+### AI Tool
+Antigravity
+
+### Prompt
+Created a mobile-first leaderboard focused on community motivation, personal progress, and achievable milestones rather than competitive ranking.
+
+### AI Output
+- Added the Community Leaderboard.
+- Added a small set of top student rankings.
+- Added the current student's position and streak.
+- Added a personal next milestone with progress.
+- Added encouraging motivational messaging.
+- Added subtle leaderboard and milestone animations.
+- Verified the section on mobile and desktop.
+
+### Manual Changes
+- None.
+
+### Reason for Using AI
+To introduce community motivation without making students feel discouraged by competitive rankings.
+
+
+### Prompt 24
+
+### Goal
+Fix the Your Journey timeline alignment, line separation, dot centering, and progressive reveal animation.
+
+### AI Tool
+Antigravity
+
+### Prompt
+Updated the mobile-first journey timeline layout so the vertical line sits clearly to the left of independent challenge cards with centered node dots and a smooth top-to-bottom reveal animation.
+
+### AI Output
+- Separated the vertical timeline line to the left of challenge cards.
+- Centered completed, current, and locked node dots on the timeline axis.
+- Ensured a clean whitespace gap between the timeline axis and challenge cards.
+- Added a top-to-bottom progressive reveal animation for the timeline line.
+- Added sequential entrance animations for challenge dots and cards.
+- Preserved existing card contents, typography, and dark/light styling.
+- Verified the alignment fix on mobile (390px) and desktop.
+
+### Manual Changes
+- None.
+
+### Reason for Using AI
+To establish a clean, visually balanced timeline composition and smooth progressive journey animation on mobile and desktop.
+
+
+### Prompt 25
+
+### Goal
+Add persistent domain selection, domain locking, domain-specific progress, and the returning-user journey flow.
+
+### AI Tool
+Antigravity
+
+### Prompt
+Implemented the ABTalks journey flow where students start from the Landing Page, select a domain on the Dashboard, lock their chosen path, and return later through a Track Your Progress action.
+
+### AI Output
+- Added domain selection and locked-domain behavior.
+- Added Edit Domain functionality.
+- Preserved separate progress for each domain.
+- Added the Start Your Journey and Start Your Day 1 flow.
+- Updated the Landing Page CTA to show Track Your Progress after domain selection.
+- Added persistent journey state using local mock data.
+- Verified the flow on mobile and desktop.
+
+### Manual Changes
+- None.
+
+### Reason for Using AI
+To create a persistent, personalized 60-day journey while keeping the implementation within the hackathon's mock-data constraints.
+
+
+### Prompt 26
+
+### Goal
+Build the complete Day 12 challenge experience with task details and proof-of-work submission.
+
+### AI Tool
+Antigravity
+
+### Prompt
+Created the Day 12 challenge page with the task requirements, learning outcomes, estimated time, GitHub and LinkedIn proof submission, and completion flow.
+
+### AI Output
+- Added the Day 12 challenge details.
+- Added the build requirements and learning outcomes.
+- Added GitHub proof submission.
+- Added LinkedIn proof submission.
+- Added submission status tracking.
+- Added the Day 12 completion state.
+- Added subtle page and submission animations.
+- Verified the page at 390px and desktop.
+
+### Manual Changes
+- None.
+
+### Reason for Using AI
+To create a complete single-day challenge experience that clearly guides students from understanding the task to submitting visible proof of work.
+
+
+### Prompt 27
+
+### Goal
+Implement and verify the mandatory first-day, missed-day, and empty-profile edge cases.
+
+### AI Tool
+Antigravity
+
+### Prompt
+Continued the edge-case implementation and verified realistic fresh, missed-day, and empty-profile states.
+
+### AI Output
+- Added/verified the first-day zero-streak state.
+- Added/verified the missed-day state.
+- Added/verified the empty profile/proof state.
+- Added/verified development-friendly test states.
+- Verified domain-specific progress remains separate.
+- Tested the edge cases on mobile and desktop.
+- Verified the required routes remain accessible.
+
+### Manual Changes
+- None.
+
+### Reason for Using AI
+To make the required real-world edge cases testable and ensure students receive sensible experiences when starting, missing a day, or having no proof of work yet.
+
+
+### Prompt 28
+
+### Goal
+Fix the Dashboard demo edge-case state switching synchronization bug where UI updates lagged by one click.
+
+### AI Tool
+Antigravity
+
+### Prompt
+Fixed the demo state switching synchronization so that selecting Fresh Student, Missed Day, or Active Student immediately updates the Dashboard UI in place on the first click.
+
+### AI Output
+- Identified root cause where `window.history.replaceState` ran after event dispatch, leaving URL search params stale during event evaluation.
+- Updated `setDemoMode` to update URL search parameters and `localStorage` before firing `abtalks-journey-updated`.
+- Updated `getEffectiveMetrics` to support explicit mode overrides for instant synchronous rendering.
+- Eliminated state lag; every demo click updates the Dashboard on the very first click.
+- Verified rapid switching between Fresh, Missed, and Active demo states without page reloads.
+
+### Manual Changes
+- None.
+
+### Reason for Using AI
+To establish a single source of truth for demo mode state management and ensure instant, reliable edge-case state switching during evaluation.
+
+
+### Prompt 29
+
+### Goal
+Connect the Dashboard sections into one complete 60-day student journey.
+
+### AI Tool
+Antigravity
+
+### Prompt
+Integrated domain selection, journey start, daily challenges, progress, completion, streak, and returning-user behavior into one persistent Dashboard flow.
+
+### AI Output
+- Connected the Dashboard journey from domain selection through daily progress.
+- Connected the journey timeline with the current challenge.
+- Connected Today's Task with the active domain and day.
+- Connected progress, completion, and streak with the student's journey.
+- Connected challenge completion with the next challenge unlock.
+- Preserved domain-specific progress.
+- Updated the Landing Page CTA for returning students.
+- Verified the complete journey on mobile and desktop.
+
+### Manual Changes
+- None.
+
+### Reason for Using AI
+To make the Dashboard behave as one coherent 60-day journey instead of separate independent sections.
+
+
+### Prompt 30
+
+### Goal
+Make the student's 60-day journey persist across refreshes, navigation, and domain changes.
+
+### AI Tool
+Antigravity
+
+### Prompt
+Implemented persistent journey state so domain selection, progress, submissions, streak, and challenge completion remain available when students return.
+
+### AI Output
+- Added persistent journey state.
+- Preserved the selected domain after refresh and return visits.
+- Preserved current day and completed challenges.
+- Preserved GitHub and LinkedIn proof.
+- Preserved streak and missed-day information.
+- Added separate progress for each domain.
+- Updated the returning-user Dashboard and Landing Page behavior.
+- Verified persistence across refreshes and navigation.
+
+### Manual Changes
+- None.
+
+### Reason for Using AI
+To ensure students can leave and return to ABTalks without losing their 60-day journey progress.
+
+
+### Prompt 31
+
+### Goal
+Complete the three mandatory real-world edge cases required for the ABTalks challenge.
+
+### AI Tool
+Antigravity
+
+### Prompt
+Implemented and verified realistic first-day, missed-day, and empty-profile states using the existing journey system.
+
+### AI Output
+- Added the first-day zero-streak state.
+- Added missed-day handling and recovery behavior.
+- Added the empty profile/proof state.
+- Ensured missed days do not count as completed challenges.
+- Preserved domain-specific edge-case states.
+- Verified persistence across refreshes.
+- Tested the states on mobile and desktop.
+
+### Manual Changes
+- None.
+
+### Reason for Using AI
+To ensure the ABTalks experience handles realistic students who are starting their journey, miss a day, or have not yet built a public profile.
+
+
+### Prompt 32
+
+### Goal
+Complete the 60-day challenge unlocking system so students progress sequentially after submitting their proof of work.
+
+### AI Tool
+Antigravity
+
+### Prompt
+Connected challenge completion with GitHub and LinkedIn proof so only the next challenge unlocks after the current challenge is completed.
+
+### AI Output
+- Added sequential challenge unlocking.
+- Added locked, current, and completed challenge states.
+- Connected GitHub and LinkedIn proof to challenge completion.
+- Prevented students from skipping challenges.
+- Connected challenge completion with progress, streak, and Today's Task.
+- Added persistent challenge progression.
+- Preserved separate progression for each domain.
+- Added subtle completion and unlock animations.
+- Verified the flow on mobile and desktop.
+
+### Manual Changes
+- None.
+
+### Reason for Using AI
+To make the 60-day challenge progression enforce consistent daily completion while keeping proof of work central to unlocking the next challenge.
+
+
+### Prompt 33
+
+### Goal
+Complete the Day 12 challenge page with the full build, proof-of-work, and completion experience.
+
+### AI Tool
+Antigravity
+
+### Prompt
+Completed the `/day/12` experience with challenge details, requirements, learning outcomes, GitHub and LinkedIn proof submission, and challenge completion.
+
+### AI Output
+- Completed the Day 12 challenge experience.
+- Added the challenge requirements and learning outcomes.
+- Added GitHub proof submission.
+- Added LinkedIn proof submission.
+- Connected submissions with challenge completion.
+- Connected Day 12 with the existing challenge progression.
+- Added persistent submission and completion states.
+- Added subtle completion animations.
+- Verified direct `/day/12` access.
+- Tested mobile and desktop layouts.
+
+### Manual Changes
+- None.
+
+### Reason for Using AI
+To provide judges and students with a complete single-day challenge experience from understanding the task through submitting visible proof of work.
+
+
+### Prompt 34
+
+### Goal
+Continue and complete the desktop responsive polish while protecting the 390px mobile-first baseline.
+
+### AI Tool
+Antigravity
+
+### Prompt
+Continued the desktop responsive pass from the existing project state and verified the desktop layouts without affecting the 390px mobile experience.
+
+### AI Output
+- Continued desktop responsive improvements.
+- Balanced desktop spacing and card layouts.
+- Refined Landing Page and Dashboard desktop layouts.
+- Refined the Day 12 desktop experience.
+- Verified dark and light themes.
+- Verified required routes and interactions.
+- Re-tested the 390px mobile layout.
+- Checked for horizontal overflow and console issues.
+
+### Manual Changes
+- None.
+
+### Reason for Using AI
+To finish the desktop responsive QA pass while preserving the already completed mobile-first experience.
+
+
+### Prompt 35
+
+### Goal
+Complete the desktop responsive polish and ensure the ABTalks experience works consistently across desktop screen sizes.
+
+### AI Tool
+Antigravity
+
+### Prompt
+Reviewed and polished the Landing Page, Dashboard, and Day 12 challenge experience for desktop responsiveness while preserving the mobile-first layout.
+
+### AI Output
+- Improved desktop spacing and content widths.
+- Balanced desktop card and grid layouts.
+- Improved Hero and Dashboard desktop composition.
+- Refined the Day 12 desktop challenge layout.
+- Improved desktop form and proof-of-work presentation.
+- Verified dark and light themes.
+- Verified desktop animations.
+- Re-tested the 390px mobile layout.
+- Verified the required routes and interactions.
+- Checked the browser console for errors.
+
+### Manual Changes
+- None.
+
+### Reason for Using AI
+To ensure the ABTalks application provides a polished desktop experience without affecting the mobile-first design or existing functionality.
+
+
+### Prompt 36
+
+### Goal
+Complete the final Dark and Light theme consistency pass across ABTalks.
+
+### AI Tool
+Antigravity
+
+### Prompt
+Reviewed the complete ABTalks application in Dark and Light Mode and fixed theme inconsistencies without changing functionality.
+
+### AI Output
+- Improved Dark and Light Mode consistency.
+- Fixed theme-specific text, border, card, and input issues.
+- Improved selected, locked, completed, and empty states.
+- Verified GitHub and LinkedIn submission states.
+- Verified the Day 12 completion state.
+- Verified theme persistence across routes and refreshes.
+- Tested both themes at mobile and desktop sizes.
+- Checked animations and accessibility states.
+- Verified the browser console.
+
+### Manual Changes
+- None.
+
+### Reason for Using AI
+To ensure the ABTalks experience remains visually consistent and readable across both Dark and Light Mode.
+
+
+### Prompt 37
+
+### Goal
+Clean up and polish the animations across ABTalkS without making the interface distracting.
+
+### AI Tool
+Antigravity
+
+### Prompt
+Reviewed the existing animations across the Landing Page, Dashboard, and Day 12 challenge and refined them for smoother, faster, and more consistent interactions.
+
+### AI Output
+- Simplified unnecessary animations.
+- Refined card and button transitions.
+- Improved How It Works animations.
+- Refined FAQ and timeline animations.
+- Polished challenge unlock and completion animations.
+- Prevented animations from causing layout shifts.
+- Improved mobile animation behavior.
+- Verified Dark and Light Mode animations.
+- Added/verified reduced-motion behavior.
+- Tested the complete flow on mobile and desktop.
+
+### Manual Changes
+- None.
+
+### Reason for Using AI
+To make ABTalkS feel polished and responsive while keeping motion subtle and focused on meaningful interactions.
+
+
+### Prompt 38
+
+### Goal
+Document the official Route Map in README.md matching hackathon specifications.
+
+### AI Tool
+Antigravity
+
+### Prompt
+Added the exact Route Map section in README.md listing the mandatory hackathon routes `/`, `/dashboard`, and `/day/12` in sequential order.
+
+### AI Output
+- Added Route Map section to README.md.
+- Listed mandatory routes `/`, `/dashboard`, and `/day/12` in exact order.
+- Provided route descriptions for Landing Page, Builder Dashboard, and Day 12 Challenge Page.
+- Documented tech stack and setup commands.
+
+### Manual Changes
+- None.
+
+### Reason for Using AI
+To ensure judges have clear documentation of the mandatory routes exposed by the application.

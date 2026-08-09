@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import {
   ArrowRight,
@@ -8,11 +9,13 @@ import {
   Send,
   Sparkles,
 } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import Navbar from '../layout/Navbar'
 import useTheme from '../../hooks/useTheme'
 import HowItWorks from './HowItWorks'
 import FAQ from './FAQ'
 import Footer from './Footer'
+import { getJourneyState } from '../../lib/journeyState'
 
 const reveal = {
   hidden: { opacity: 0, y: 16 },
@@ -60,6 +63,24 @@ function ChallengePreview() {
 function Hero() {
   const { theme, toggleTheme } = useTheme()
 
+  const [hasSelectedDomain, setHasSelectedDomain] = useState(() => {
+    const state = getJourneyState()
+    return Boolean(state.selectedDomain)
+  })
+
+  useEffect(() => {
+    const handleUpdate = () => {
+      const state = getJourneyState()
+      setHasSelectedDomain(Boolean(state.selectedDomain))
+    }
+    window.addEventListener('abtalks-journey-updated', handleUpdate)
+    window.addEventListener('storage', handleUpdate)
+    return () => {
+      window.removeEventListener('abtalks-journey-updated', handleUpdate)
+      window.removeEventListener('storage', handleUpdate)
+    }
+  }, [])
+
   return (
     <main className={`${theme === 'dark' ? 'dark' : ''} min-h-screen overflow-x-clip bg-[#fcfcfe] text-slate-950 transition-colors duration-200 dark:bg-[#090912] dark:text-white`}>
       <section className="relative isolate mx-auto min-h-screen w-full max-w-7xl px-5 py-5 sm:px-8 lg:px-12 lg:py-8">
@@ -78,9 +99,11 @@ function Hero() {
               <p className="mt-3 max-w-lg text-[15px] leading-6 text-slate-600 dark:text-slate-400 sm:text-base">Build something new every day, document your progress, and turn 60 days of consistent work into a portfolio that speaks for you.</p>
               <p className="mt-3 text-sm font-semibold text-indigo-600 dark:text-indigo-300 sm:text-base">Build. Share. Get noticed.</p>
               <div className="mt-8 flex flex-col gap-3 sm:mt-9 sm:flex-row">
-                <motion.a href="/dashboard" whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }} transition={{ duration: 0.18 }} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-indigo-600 px-5 text-sm font-semibold text-white shadow-lg shadow-indigo-950/20 hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 dark:bg-indigo-500 dark:shadow-indigo-950/40 dark:hover:bg-indigo-400 dark:focus-visible:outline-indigo-300">
-                  Start Your 60 Days <ArrowRight aria-hidden="true" className="size-4" />
-                </motion.a>
+                <Link to="/dashboard">
+                  <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }} transition={{ duration: 0.18 }} className="inline-flex w-full min-h-12 items-center justify-center gap-2 rounded-xl bg-indigo-600 px-5 text-sm font-semibold text-white shadow-lg shadow-indigo-950/20 hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 dark:bg-indigo-500 dark:shadow-indigo-950/40 dark:hover:bg-indigo-400 dark:focus-visible:outline-indigo-300">
+                    {hasSelectedDomain ? 'Track Your Progress' : 'Start Your 60 Days'} <ArrowRight aria-hidden="true" className="size-4" />
+                  </motion.div>
+                </Link>
                 <motion.a href="#how-it-works" whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }} transition={{ duration: 0.18 }} className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-5 text-sm font-semibold text-slate-800 shadow-sm hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 dark:border-white/12 dark:bg-white/[0.035] dark:text-slate-100 dark:shadow-none dark:hover:bg-white/[0.08] dark:focus-visible:outline-indigo-300">
                   <span>How It Works</span>
                   <ArrowRight aria-hidden="true" className="size-4 transition-transform group-hover:translate-x-0.5" />

@@ -1,4 +1,5 @@
 import { Moon, Sun } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 function ABTalksLogo() {
   return (
@@ -13,9 +14,9 @@ function Navbar({ theme, onToggleTheme }) {
 
   return (
     <header className="flex min-h-12 items-center justify-between border-b border-slate-200/90 pb-3 dark:border-white/10">
-      <a href="/" className="rounded-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-indigo-500">
+      <Link to="/" className="rounded-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-indigo-500">
         <ABTalksLogo />
-      </a>
+      </Link>
       <div className="flex items-center gap-2">
         <button
           aria-label={`Switch to ${isDark ? 'light' : 'dark'} theme`}

@@ -1,0 +1,46 @@
+export const mockLeaderboardData = {
+  topStudents: [
+    {
+      rank: 1,
+      name: 'Aarav Sharma',
+      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+      domain: 'Software Engineering',
+      streak: 28,
+      badge: '🥇 28-Day Streak',
+    },
+    {
+      rank: 2,
+      name: 'Riya Patel',
+      avatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&auto=format&fit=crop&q=80',
+      domain: 'Data Science',
+      streak: 26,
+      badge: '🥈 26-Day Streak',
+    },
+    {
+      rank: 3,
+      name: 'Kabir Verma',
+      avatar: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150&auto=format&fit=crop&q=80',
+      domain: 'Artificial Intelligence',
+      streak: 24,
+      badge: '🥉 24-Day Streak',
+    },
+  ],
+  currentStudent: {
+    rank: 18,
+    name: 'You (Alex)',
+    domain: 'Software Engineering',
+    streak: 12,
+    completedDays: 12,
+    tag: 'Consistency Builder',
+    motivationalText: 'Every build adds to your journey.',
+  },
+  nextMilestone: {
+    title: '15-Day Builder',
+    icon: '🔥',
+    targetDays: 15,
+    currentDays: 12,
+    remainingDays: 3,
+    percentage: 80,
+    rewardText: 'Unlock 15-Day Builder Badge & GitHub Showcase Feature',
+  },
+}
